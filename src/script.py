@@ -2,20 +2,15 @@ import pandas as pd
 import argparse
 from shapely.geometry import Polygon, Point
 import lxml.etree as etree
+from lxml import etree
+from tqdm.notebook import tqdm
 
-
-parser = argparse.ArgumentParser(description='Given a kml file, outputs the population of the polygon in the kml file')
-
-parser.add_argument('kml_file',help='Path to the kml file')
-parser.add_argument('population_file',help='Path to the population file',default='Données nationales/population-par-commune.csv')
-
-args = parser.parse_args()
 
 # Get the polygon from the kml file
 def kml_to_polygon(file_path):
 
     # parse the kml file
-    from lxml import etree
+    
     with open(file_path) as f:
         doc = etree.parse(f)
 
@@ -39,26 +34,28 @@ def kml_to_polygon(file_path):
 def is_in_polygon(polygon,point):
     return polygon.contains(point)
 
+
+
 # get the population of a polygon
-def get_population(polygon,file_path=args.population_file):
+def get_population(polygon,file_path):
 
+    tqdm.pandas()
 
+    print('Lecture du fichier source')
+  
     try:
         df = pd.read_csv(file_path)
-    except:
+    except FileNotFoundError:
         print('Error: file not found : ' + file_path)
         return
-    
-    # get the population of the polygon
-    df.est_dans_agriviva = df.apply(lambda x : is_in_polygon(polygon,Point(x.latitude,x.longitude)),axis=1)
 
-    print("Population totale : "+str(df[df.est_dans_agriviva==True]['Population totale'].sum()))
+    print('Calcul de la population')
 
+    df['in_polygon']=df.progress_apply(lambda x : is_in_polygon(polygon,Point(x.latitude,x.longitude)),axis=1)
+  
+    total = df[df["in_polygon"]==True]['Population totale'].sum()
 
-
-if __name__ == "__main__":
-    polygon = kml_to_polygon(args.kml_file)
-    get_population(polygon)
+    print("Population totale : "+str(int(total))+" habitants (source:  INSEE 2023)")
 
 
 
