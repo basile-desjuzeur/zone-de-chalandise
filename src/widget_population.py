@@ -1,14 +1,15 @@
 import os
 import ipywidgets as widgets
 from IPython.display import display, clear_output, HTML
-from src.script import kml_to_polygon,get_population
+from script import kml_to_polygon,get_population
+
 
 # Function to get the list of files in the specified directory
 def get_files_list(directory):
     return os.listdir(directory)
 
 # Specify the directory
-directory_path = "./Données sites"
+directory_path = "../Données sites"
 
 # Dropdown widget to select a file
 dropdown = widgets.Dropdown(
@@ -31,9 +32,9 @@ def on_button_run_script_click(b):
         # Check if a file is selected in the dropdown
         selected_file = dropdown.value
         if selected_file:
-            script_path = "./src/script.py"
-            file_path = f'./Données sites/{selected_file}'
-            population_path = "./Données nationales/population-par-commune.csv"
+            script_path = "../src/script.py"
+            file_path = f'../Données sites/{selected_file}'
+            population_path = "../Données nationales/population-par-commune.csv"
             
 
             polygon = kml_to_polygon(file_path)

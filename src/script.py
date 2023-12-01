@@ -1,9 +1,9 @@
 import pandas as pd
-import argparse
 from shapely.geometry import Polygon, Point
 import lxml.etree as etree
 from lxml import etree
 from tqdm.notebook import tqdm
+
 
 
 # Get the polygon from the kml file
@@ -57,5 +57,23 @@ def get_population(polygon,file_path):
 
     print("Population totale : "+str(int(total))+" habitants (source:  INSEE 2023)")
 
+def get_companies(naf, polygon, df_siret):
+    """
+    Get the companies in the polygon
+    attribute : naf : list of naf codes
+    attribute : polygon : polygon of the area of interest
+    return : Dask DataFrame of companies in the polygon
+    """
 
+    # get the companies with the naf codes
+    df = df_siret[df_siret['activitePrincipaleEtablissement'].isin(naf)]
 
+    # create a valid meta for the apply function
+    meta = pd.Series(name='in_polygon', dtype=bool)
+
+    # filter companies in the polygon without computing
+    df_filtered = df[df.apply(lambda x: is_in_polygon(polygon, Point(x.y_latitude, x.x_longitude)), axis=1,
+                              meta=meta)]
+
+ 
+    return df_filtered[['siret', 'y_latitude', 'x_longitude']]
