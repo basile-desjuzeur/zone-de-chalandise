@@ -6,7 +6,11 @@ from script import kml_to_polygon,get_population
 
 # Function to get the list of files in the specified directory
 def get_files_list(directory):
-    return os.listdir(directory)
+    
+        list = os.listdir(directory)
+        list_only_kml = [file for file in list if file.endswith('.kml')]
+    
+        return list_only_kml
 
 # Specify the directory
 directory_path = "../Données sites"

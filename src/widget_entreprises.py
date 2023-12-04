@@ -13,7 +13,11 @@ import csv
 
 # Function to get the list of files in the specified directory
 def get_files_list(directory):
-    return os.listdir(directory)
+
+    list = os.listdir(directory)
+    list_only_kml = [file for file in list if file.endswith('.kml')]
+
+    return list_only_kml
 
 # Specify the directory
 directory_path = "../Données sites"
@@ -128,10 +132,14 @@ def on_button_clicked(b):
     # Get the companies in the polygon
     df = get_companies(naf, polygon, df_siret)
 
+
+    print('Nombre d\'entreprises trouvées: ' + str(len(df)))
+
     output_path = "../Données sites/"+selected_file[:-4]+"_entreprises.csv"
 
     df.to_csv(output_path,index=False,single_file=True,errors='ignore')    
-    print("Fichier enregistré à l'adresse suivante: "+output_path)
+
+    print("Les informations relatives à la localisation des entreprises ont été enregistrées dans le fichier ./Données sites/"+selected_file[:-4]+"_entreprises.csv")
 
 # Attach the function to the button click event
 button.on_click(on_button_clicked)
