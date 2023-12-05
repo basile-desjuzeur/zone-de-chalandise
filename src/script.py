@@ -76,4 +76,24 @@ def get_companies(naf, polygon, df_siret):
                               meta=meta)]
 
  
-    return df_filtered[['siret', 'y_latitude', 'x_longitude']]
+    return df_filtered[['siret', 'y_latitude', 'x_longitude']],df_filtered
+
+def get_summary(dict_naf,df_filtered):
+    """
+    Create a summary of the companies in the polygon with the number of companies per NAF (described by its libellé in the dict_naf)
+    attribute : dict_naf : dict of naf codes and libellé
+    attribute : df Dask DataFrame of companies in the polygon
+                columns : siret,plg_code_commune,y_latitude,x_longitude,codeCommuneEtablissement,activitePrincipaleEtablissement
+    return : DataFrame of the summary
+    """
+
+    
+    # get the number of companies per naf
+    df_summary = df_filtered.groupby('activitePrincipaleEtablissement').count().compute()
+    df_summary.reset_index(inplace=True)
+    df_summary.rename(columns={'activitePrincipaleEtablissement': 'NAF', 'siret': 'Nombre d\'entreprises'}, inplace=True)
+
+    # sort the dataframe
+    df_summary.sort_values(by=['Nombre d\'entreprises'], ascending=False, inplace=True)
+
+    return df_summary[['NAF', 'Nombre d\'entreprises']]

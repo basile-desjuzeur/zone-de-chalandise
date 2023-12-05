@@ -3,7 +3,7 @@ import dask.dataframe as dd
 import ipywidgets as widgets
 from IPython.display import display
 import os
-from script import kml_to_polygon,get_companies
+from script import kml_to_polygon,get_companies,get_summary
 import csv
 
 
@@ -111,7 +111,11 @@ def on_button_clicked(b):
     # converts the selected libelle in 'selected_naf' to naf codes
     df = pd.read_excel('../Données nationales/NAF.xlsx')
 
-    naf = df[df['Libellé'].isin(selected_naf)]['NAF'].tolist()
+    # create a dict with libelle as key and code as value
+    libelle_code_dict = dict(zip(df['Libellé'], df['NAF']))
+
+    # get the naf codes from the dict
+    naf = [libelle_code_dict[libelle] for libelle in selected_naf]
 
     # Get the polygon from the kml file
     polygon = kml_to_polygon(directory_path + '/' + selected_file)
@@ -130,16 +134,36 @@ def on_button_clicked(b):
 
 
     # Get the companies in the polygon
-    df = get_companies(naf, polygon, df_siret)
+    df,whole_df = get_companies(naf, polygon, df_siret)
 
 
     print('Nombre d\'entreprises trouvées: ' + str(len(df)))
 
-    output_path = "../Données sites/"+selected_file[:-4]+"_entreprises.csv"
+    output_path =  "../Données sites/"+selected_file[:-4]+"_localisations_entreprises.csv"
 
     df.to_csv(output_path,index=False,single_file=True,errors='ignore')    
 
-    print("Les informations relatives à la localisation des entreprises ont été enregistrées dans le fichier ./Données sites/"+selected_file[:-4]+"_entreprises.csv")
+    print("Les informations relatives à la localisation des entreprises ont été enregistrées dans le fichier ./Données sites/"+selected_file[:-4]+"_localisations_entreprises.csv")
+
+    df_summary = get_summary(libelle_code_dict,whole_df)
+
+    output_path =  "../Données sites/"+selected_file[:-4]+"_répartition_entreprises.xlsx"
+
+    df_summary.to_excel(output_path,index=False)
+
+    print("Les informations relatives au nombre d'entreprises par secteur d'activité ont été enregistrées dans le fichier ./Données sites/"+selected_file[:-4]+"_répartition_entreprises.xlsx")
+
+    for i in range(len(df_summary)):
+
+        # get the libelle from the naf code, libelle is key and code is value 
+        libelle = [key for key, value in libelle_code_dict.items() if value == df_summary['NAF'][i]][0]
+
+        # get the number of companies
+        number_of_companies = df_summary["Nombre d'entreprises"][i]
+
+        print('Nombre de '+ libelle + ' : ' + str(number_of_companies))
+    
+
 
 # Attach the function to the button click event
 button.on_click(on_button_clicked)
