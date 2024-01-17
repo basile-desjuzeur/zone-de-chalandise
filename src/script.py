@@ -12,9 +12,15 @@ import folium
 # Get the polygon from the kml file
 def kml_to_polygon(file_path):
 
-    # parse the kml file
-    with open(file_path) as f:
-        doc = etree.parse(f)
+
+    # check if the file is path or content
+    if file_path[-4:] == '.kml':
+        # get the content of the file
+        with open(file_path,'r') as f:
+            doc = f.read()
+    else:
+        # get the content of the file
+        doc = file_path
 
     # get the coordinates, file is as follow :       <Polygon><outerBoundaryIs><LinearRing><coordinates>
     coordinates = doc.findall('.//{http://www.opengis.net/kml/2.2}coordinates')
