@@ -11,19 +11,17 @@ import folium
 
 # Get the polygon from the kml file
 def kml_to_polygon(file_path):
+    """
+    attribute : file_path : path to the kml file of the area of interest
+    or kml file of the area of interest
+    
+    """
 
 
-    # check if the file is path or content
-    if file_path[-4:] == '.kml':
-        # get the content of the file
-        with open(file_path,'r') as f:
-            doc = f.read()
-    else:
-        # get the content of the file
-        doc = file_path
+
 
     # get the coordinates, file is as follow :       <Polygon><outerBoundaryIs><LinearRing><coordinates>
-    coordinates = doc.findall('.//{http://www.opengis.net/kml/2.2}coordinates')
+    coordinates = file_path.findall('.//{http://www.opengis.net/kml/2.2}coordinates')
 
     # Parse the coordinates
     coordinates = coordinates[0].text.split()
