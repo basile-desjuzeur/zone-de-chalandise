@@ -6,18 +6,28 @@ from lxml import etree
 import geopandas as gpd
 from tqdm.notebook import tqdm
 import folium
+import geojson
 
 
+def geo_json_to_polygon(file_path):
+    """
+    attribute : file_path : path to the geojson file of the area of interest
+    """
+    
+    # convert geojson to polygon
+    with open(file_path) as f:
+        gj = geojson.load(f)
+
+    polygon = Polygon(gj['features'][0]['geometry']['coordinates'][0])
+
+    return polygon
 
 # Get the polygon from the kml file
 def kml_to_polygon(file_path):
     """
     attribute : file_path : path to the kml file of the area of interest
-    or kml file of the area of interest
     
     """
-
-
 
 
     # get the coordinates, file is as follow :       <Polygon><outerBoundaryIs><LinearRing><coordinates>
@@ -29,8 +39,6 @@ def kml_to_polygon(file_path):
     # Create a list of (longitude, latitude) pairs
     points = [tuple(map(float, coord.split(','))) for coord in coordinates]
 
-    # reverse the order of coordinates in a tuple
-    #points = [(y, x) for x, y in points]
 
     # Create the polygon
     polygon = Polygon(points)
@@ -224,7 +232,11 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     print('Lecture du fichier de surface...')
 
     # get the polygon
-    polygon = kml_to_polygon(kml_file_path)
+
+    if kml_file_path.split('.')[-1] == 'kml':
+        polygon = kml_to_polygon(kml_file_path)
+    elif kml_file_path.split('.')[-1] == 'geojson':
+        polygon = geo_json_to_polygon(kml_file_path)
 
 
     print("Filtre des communes dans l'aire d'étude...")
