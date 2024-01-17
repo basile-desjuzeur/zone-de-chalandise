@@ -1,6 +1,4 @@
 
-# %%
-
 import pandas as pd
 from shapely.geometry import Polygon, Point
 import lxml.etree as etree
@@ -246,13 +244,5 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     return m
 
 
-m =_main('../Données sites/agriviva.kml',['47.11F'])
 
 
-
-
-
-
-
-
-# %%

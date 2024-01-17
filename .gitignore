@@ -1,4 +1,8 @@
 venv_zone_de_chalandise/*
 old/
 Données sites/*
-Données nationales/*
+Notebooks/.DS_Store
+Notebooks/Comment faire une étude de zone de chalandise _.ipynb
+src/*
+Données sites/*
+Données nationales/useless/*
