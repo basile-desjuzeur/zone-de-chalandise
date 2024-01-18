@@ -1,10 +1,7 @@
 
 import pandas as pd
-from shapely.geometry import Polygon, Point
-import lxml.etree as etree
-from lxml import etree
+from shapely.geometry import Polygon
 import geopandas as gpd
-from tqdm.notebook import tqdm
 import folium
 import geojson
 
@@ -117,13 +114,10 @@ def get_companies(naf, df_communes, path_entreprises = '../Données nationales/R
     # get the companies with the naf codes
     df = df_siret[df_siret['codeApe'].isin(naf)]
 
-
     # get the companies in the polygon (i.e. with code)
     df_filtered = df[df['codeInseecommune'].isin(codes_communes)]
 
-    # lien pappers 
-    #df_filtered['lien_pappers'] = df_filtered.siret.apply(lambda x : "https://www.pappers.fr/recherche?q="+str(x))
-
+    # lien pappers pour chaque entreprise
     df_filtered = df_filtered.copy()
     df_filtered.loc[:, 'lien_pappers'] = df_filtered['siret'].apply(lambda x: "https://www.pappers.fr/recherche?q=" + str(x))
 
@@ -181,7 +175,7 @@ def display_map(df_filtered,polygon,population,kml_file_path):
 
         
     # title in bold
-    title = 'Cartograhie des entreprises : '+ kml_file_path.split('/')[-1].split('.')[0].capitalize() 
+    title = 'Cartographie des entreprises : '+ kml_file_path.split('/')[-1].split('.')[0].capitalize() 
 
     # subtitle
     subtitle_1 = 'Population du bassin considéré : '+ "{:,}".format(population).replace(',',' ')+' habitants'
@@ -259,6 +253,6 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
 
     return m
 
-
+_main(kml_file_path="/Users/basiledesjuzeur/Documents/Cartographie/startway.geojson",naf=['47.11D'])
 
 
