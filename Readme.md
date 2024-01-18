@@ -6,7 +6,9 @@ Ce projet a pour but de cartographier des zones de chalandises, en particulier i
 - référencer les entreprises identifiées par leur code NAF (plus d'informations sur les codes NAF [ici](https://www.insee.fr/fr/information/2406147))
 
 
-<a href="https://basile-desjuzeur.github.io/zone-de-chalandise/img/Lille.html" target='_blank'> Cartographie des hypermarchés à 1h de voiture de Lille. </a>
+Un exemple :
+
+<a href="https://basile-desjuzeur.github.io/zone-de-chalandise/img/Lille.html" target='_blank'onclick="window.open(this.href); return false;"> Cartographie des hypermarchés à 1h de voiture de Lille </a>
 
 Pour ce faire, il exploite des données publiques (voir source) des institutions suivantes :
 
