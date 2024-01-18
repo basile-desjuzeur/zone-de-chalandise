@@ -166,7 +166,7 @@ def display_map(df_filtered,polygon,population,kml_file_path):
                 +'Diffusion Commerciale : '+'<br>'+str(gdf.iloc[i]['diffusionCommerciale'])+'<br>'
 
                 # display confidence score as percentage rather than /5
-                +"Confiance dans l'adresse: "+'<br>'+str(int(gdf.iloc[i]['confiance']/5*100))+'%<br>'
+                +"Confiance dans la localisation : "+'<br>'+str(int(gdf.iloc[i]['confiance']/5*100))+'%<br>'
                 +'<a href="'+gdf.iloc[i]['lien_pappers']+'">Lien Pappers</a>'
             ),
             tooltip=gdf.iloc[i]['nomCommercial']
@@ -253,6 +253,5 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
 
     return m
 
-_main(kml_file_path="/Users/basiledesjuzeur/Documents/Cartographie/startway.geojson",naf=['47.11D'])
 
 

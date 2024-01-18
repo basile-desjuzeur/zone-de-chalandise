@@ -5,7 +5,7 @@ Ce projet a pour but de cartographier des zones de chalandises, en particulier i
 - estimer la population sous une aire donnée de France métropolitaine
 - référencer les entreprises identifiées par leur code NAF (plus d'informations sur les codes NAF [ici](https://www.insee.fr/fr/information/2406147))
 
-Un exemple : [cartographie des hypermarchés à 1h de voiture de Lille](./img/Lille.html).
+Un exemple : [cartographie des hypermarchés à 1h de voiture de Lille](https://basile-desjuzeur/zone-de-chalandise/img/Lille.html).
 
 Pour ce faire, il exploite des données publiques (voir source) des institutions suivantes :
 
