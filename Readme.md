@@ -8,7 +8,7 @@ Ce projet a pour but de cartographier des zones de chalandises, en particulier i
 
 Un exemple :
 
-<a href="https://basile-desjuzeur.github.io/zone-de-chalandise/img/Lille.html" target='_blank'onclick="window.open(this.href); return false;"> Cartographie des hypermarchés à 1h de voiture de Lille </a>
+<a href="https://basile-desjuzeur.github.io/zone-de-chalandise/img/Lille.html" onclick="window.open(this.href); return false;">Cartographie des hypermarchés à 1h de voiture de Lille</a>
 
 Pour ce faire, il exploite des données publiques (voir source) des institutions suivantes :
 
