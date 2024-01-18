@@ -1,7 +1,4 @@
 
-#%%
-
-
 import pandas as pd
 from shapely.geometry import Polygon
 import geopandas as gpd
@@ -125,7 +122,7 @@ def get_companies(naf, df_communes, path_entreprises = '../Données nationales/R
 
     return df_filtered
 
-#%%
+
 
 def colors_for_map(naf):
     """
@@ -163,7 +160,7 @@ def colors_for_map(naf):
 
     return colors
 
-#%%
+
 
 def display_map(df_filtered,polygon,population,kml_file_path,colors):
     """
@@ -257,7 +254,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
 
 
     return m
-#%%
+
 
 def add_legend(m,colors,naf_file = '../Données nationales/NAF.parquet'):
     """
@@ -339,14 +336,13 @@ def add_legend(m,colors,naf_file = '../Données nationales/NAF.parquet'):
         legend_html_base += '&nbsp; <i class="fa fa-circle" style="color:{}"></i> {} <br>'.format(hex_color,df_naf.iloc[i]['libelleNaf'])
 
     # close the legend
-    legend_html_base += '</div>'
+    legend_html_base += '</div></div>'
 
     # add the legend to the map
     m.get_root().html.add_child(folium.Element(legend_html_base))
 
     return m
 
-#%%
 def _main(kml_file_path,naf,population_file_path= '../Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../Données nationales/RegistreNationalEtablissementsActifsRneSirene.parquet'):
     """
     kml_file_path : path to the kml file of the area of interest
@@ -386,12 +382,19 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     m = display_map(df_filtered,polygon,population,kml_file_path,colors)
 
     # add the legend
-    #m = add_legend(m,colors)
+    m = add_legend(m,colors)
 
     return m
 
 
 
-m = _main(kml_file_path='../Données sites/agriviva.kml',naf = ['47.11D','47.11F','10.71C'])
+m = _main(kml_file_path='../Données sites/agriviva.kml',naf = ['08.93Z',
+ '35.21Z',
+ '96.04Z',
+ '43.32A',
+ '96.03Z',
+ '15.11Z',
+ '77.35Z',
+ '43.39Z'])
 m.save('./temp.html')
-# %%
+
