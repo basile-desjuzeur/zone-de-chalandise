@@ -35,7 +35,7 @@ def colors_for_map(naf):
 
 
     # dictionary of colors for each naf code
-    colors = { naf : list(color_names_dict.items())[i] for i,naf in enumerate(naf)}
+    colors = { naf_code : list(color_names_dict.items())[i] for i,naf_code in enumerate(naf)}
 
     return colors
 
