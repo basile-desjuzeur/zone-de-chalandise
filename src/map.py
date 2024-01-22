@@ -1,9 +1,7 @@
-#%%
 import folium 
 import geopandas as gpd
 import pandas as pd
 from branca.element import Template,MacroElement
-
 
 def colors_for_map(naf):
     """
@@ -224,7 +222,6 @@ template_end = """
 </style>
 {% endmacro %}"""
 
-
 def add_legend(m,colors,naf_file = '../Données nationales/NAF.parquet'):
 
     """
@@ -276,6 +273,3 @@ def add_legend(m,colors,naf_file = '../Données nationales/NAF.parquet'):
 
     return m
 
-
-
-# %%

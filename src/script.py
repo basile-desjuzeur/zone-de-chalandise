@@ -1,4 +1,3 @@
-#%%
 import pandas as pd
 from shapely.geometry import Polygon
 import geopandas as gpd
@@ -123,7 +122,6 @@ def get_companies(naf, df_communes, path_entreprises = '../Données nationales/R
     return df_filtered
 
 
-
 def _main(kml_file_path,naf,population_file_path= '../Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../Données nationales/RegistreNationalEtablissementsActifsRneSirene.parquet'):
     """
     kml_file_path : path to the kml file of the area of interest
@@ -167,7 +165,3 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
 
     return m
 
-
-m = _main("../Données sites/agriviva.kml",naf=['47.11F','47.11D'])
-
-# %%
