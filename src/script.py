@@ -1,5 +1,8 @@
+
+#%%
 import pandas as pd
 from shapely.geometry import Polygon
+import shapely
 import geopandas as gpd
 import geojson
 from lxml import etree
@@ -63,21 +66,28 @@ def get_cities_in_polygon(polygon,file_path = '../Données nationales/population
         print('Error: file not found : ' + file_path)
         return
     
-    df['in_polygon']=df.apply(lambda x : x.geometryCommune.within(polygon),axis=1)
 
+    df['intersection']=df.apply(lambda x : x.geometryCommune.intersection(polygon),axis=1)
+    df['intersection']=df.apply(lambda x : x.geometryCommune.intersection(polygon),axis=1)
 
-    return df[df["in_polygon"]==True][["nomCommune", "codeCommune", "populationCommune"]]
+    df["proportion_inter"] = df.apply(lambda x : x.intersection.area/x.geometryCommune.area,axis=1)
+    
+    
+    return df[df["proportion_inter"] > 0 ][["nomCommune", "codeCommune", "populationCommune","proportion_inter"]]
+  
 
 # get the population in the cities in the polygon
 def get_population(df_cities_in_polygon):
     """
-    Gets the population in the cities in the polygon
+    Gets the population of the area covered by the 
     attribute : df_cities_in_polygon : DataFrame of cities in the polygon
                 columns : ["nomCommune", "codeCommune", "populationCommune"
     return : population in the cities in the polygon
     """
 
-    return df_cities_in_polygon['populationCommune'].sum()
+    nb =  (df_cities_in_polygon['populationCommune']*df_cities_in_polygon.proportion_inter).sum()
+
+    return round(nb)
 
 def get_companies(naf, df_communes, path_entreprises = '../Données nationales/RegistreNationalEtablissementsActifsRneSirene.parquet'):
     """
@@ -164,4 +174,6 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     m = add_legend(m,colors)
 
     return m,df_filtered
+
+m,df = _main(kml_file_path="../Données sites/agriviva.kml",naf=["47.11F","47.11D"])
 
