@@ -14,10 +14,11 @@ def colors_for_map(naf):
     """
     color_names_dict = {
         'red': '#ff0000',
-        'darkred': '#8b0000',
-        'lightred': '#ffcccb',
         'orange': '#ffa500',
+        'cadetblue': '#5f9ea0',
         'beige': '#f5f5dc',
+        'lightred': '#ffcccb',
+        'darkred': '#8b0000',  
         'green': '#008000',
         'darkgreen': '#006400',
         'lightgreen': '#90ee90',
@@ -27,7 +28,6 @@ def colors_for_map(naf):
         'purple': '#800080',
         'darkpurple': '#483d8b',
         'pink': '#ffc0cb',
-        'cadetblue': '#5f9ea0',
         'white': '#ffffff',
         'gray': '#808080',
         'lightgray': '#d3d3d3',
