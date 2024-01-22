@@ -163,5 +163,5 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     # add the legend
     m = add_legend(m,colors)
 
-    return m
+    return m,df_filtered
 
