@@ -63,9 +63,14 @@ def get_cities_in_polygon(polygon,file_path = '../Données nationales/population
         print('Error: file not found : ' + file_path)
         return
     
+    def get_intersection(x,polygon):
 
-    df['intersection']=df.apply(lambda x : x.geometryCommune.intersection(polygon),axis=1)
-    df['intersection']=df.apply(lambda x : x.geometryCommune.intersection(polygon),axis=1)
+        try :
+            x.intersection(polygon)
+        except :
+            return 0
+
+    df['intersection']=df.apply(lambda x : get_intersection(x.geometryCommune,polygon),axis=1)
 
     df["proportion_inter"] = df.apply(lambda x : x.intersection.area/x.geometryCommune.area,axis=1)
     
@@ -171,3 +176,4 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     m = add_legend(m,colors)
 
     return m,df_filtered
+
