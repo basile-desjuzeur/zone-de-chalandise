@@ -1,9 +1,10 @@
-#%%
+
 import pandas as pd
 from shapely.geometry import Polygon
 import geopandas as gpd
 import geojson
 from lxml import etree
+import simplekml
 
 from map import colors_for_map,display_map,add_legend
 
@@ -21,7 +22,6 @@ def geo_json_to_polygon(file_path):
 
     return polygon
 
-#%%
 # Get the polygon from the kml file
 def kml_to_polygon(file_path):
     """
@@ -134,6 +134,14 @@ def get_companies(naf, df_communes, path_entreprises = '../Données nationales/R
 
     return df_filtered
 
+def polygon_to_kml(polygon, output_path):
+    kml = simplekml.Kml()
+    pol = kml.newpolygon(name="Polygon Name", outerboundaryis=polygon.exterior.coords[:])
+    pol.style.polystyle.color = simplekml.Color.changealphaint(200, 'ff0000')  # Set polygon color (red in this example)
+    
+    kml.savekmz(output_path)
+
+
 
 def _main(kml_file_path,naf,population_file_path= '../Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../Données nationales/RegistreNationalEtablissementsActifsRneSirene.parquet'):
     """
@@ -176,7 +184,4 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     # add the legend
     m = add_legend(m,colors)
 
-    return m,df_filtered
-
-
-# %%
+    return m,df_filtered,polygon
