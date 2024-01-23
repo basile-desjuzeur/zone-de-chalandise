@@ -33,7 +33,6 @@ def colors_for_map(naf):
     }
 
 
-
     # dictionary of colors for each naf code
     colors = { naf_code : list(color_names_dict.items())[i] for i,naf_code in enumerate(naf)}
 
@@ -58,7 +57,6 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
     colors_for_map : function that returns the colors for each naf code
     """
     
-   
 
     # create a GeoDataFrame
     gdf = gpd.GeoDataFrame(df_filtered, geometry=gpd.points_from_xy(df_filtered.x_longitude, df_filtered.y_latitude))
@@ -71,7 +69,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
 
     # add the polygon
     folium.GeoJson(polygon,style_function=lambda x: {'opacity':'1',
-                                                     'fillColor':'#efd191',
+                                                     'fillColor':'#cd982a',
                                                      'color':'#cd982a'}).add_to(m)
 
     # add the companies to the map with all the information
@@ -105,21 +103,19 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
 
     # title in bold
     title = 'Cartographie des entreprises : '+ kml_file_path.split('/')[-1].split('.')[0].capitalize() 
-
-    # subtitle
     subtitle_1 = 'Population du bassin considéré : '+ "{:,}".format(population).replace(',',' ')+' habitants'
-
-    # subtitle smaller and in italic
     subtitle_2 = "Source : INSEE, Registre national des Entreprises, La Poste"
+    subtitle_3 ="NB : les informations sont données à titres indicatifs"
 
     # Create a single HTML element 
     html_content = '''
-        <div style="opacity: 0.7">
+        <div>
             <h3 align="center" style="font-size:16px"><b>{}</b></h3>
-            <h4 align="center" style="font-size:12px"><i>{}</i></h4>
+            <h4 align="center" style="font-size:12px">{}</h4>
             <h4 align="center" style="font-size:10px"><i>{}</i></h4>
+            <h4 align="center" style="font-size:8px"><i>{}</i></h4>
         </div>
-    '''.format(title, subtitle_1, subtitle_2)
+    '''.format(title, subtitle_1, subtitle_2,subtitle_3)
     
     # add the title
     m.get_root().html.add_child(folium.Element(html_content))
