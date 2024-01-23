@@ -1,8 +1,5 @@
-
-#%%
 import pandas as pd
 from shapely.geometry import Polygon
-import shapely
 import geopandas as gpd
 import geojson
 from lxml import etree
@@ -174,6 +171,3 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     m = add_legend(m,colors)
 
     return m,df_filtered
-
-m,df = _main(kml_file_path="../Données sites/agriviva.kml",naf=["47.11F","47.11D"])
-
