@@ -1,3 +1,4 @@
+#%%
 import pandas as pd
 from shapely.geometry import Polygon
 import geopandas as gpd
@@ -20,6 +21,7 @@ def geo_json_to_polygon(file_path):
 
     return polygon
 
+#%%
 # Get the polygon from the kml file
 def kml_to_polygon(file_path):
     """
@@ -66,13 +68,12 @@ def get_cities_in_polygon(polygon,file_path = '../Données nationales/population
     def get_intersection(x,polygon):
 
         try :
-            x.intersection(polygon)
+            intersection = x.geometryCommune.intersection(polygon)
+            return intersection.area/x.geometryCommune.area
         except :
             return 0
 
-    df['intersection']=df.apply(lambda x : get_intersection(x.geometryCommune,polygon),axis=1)
-
-    df["proportion_inter"] = df.apply(lambda x : x.intersection.area/x.geometryCommune.area,axis=1)
+    df["proportion_inter"] = df.apply(lambda x : get_intersection(x,polygon),axis=1)
     
     
     return df[df["proportion_inter"] > 0 ][["nomCommune", "codeCommune", "populationCommune","proportion_inter"]]
@@ -177,3 +178,5 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
 
     return m,df_filtered
 
+
+# %%
