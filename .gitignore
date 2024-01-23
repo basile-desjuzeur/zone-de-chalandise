@@ -1,8 +1,9 @@
+
+# venv
 venv_zone_de_chalandise/*
+
+# all olf folders
 old/
-Données sites/*
-Notebooks/.DS_Store
-Notebooks/Comment faire une étude de zone de chalandise _.ipynb
-src/*
-Données sites/*
-Données nationales/useless/*
+
+# ds store
+.DS_Store
