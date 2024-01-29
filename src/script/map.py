@@ -46,8 +46,8 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
                             'y_latitude',
                             'x_longitude',
                             'nomCommercial',
-                            'adresseEtablissement',
-                            'codeInseecommune',
+                            'adresse',
+                            'codeInseeCommune',
                             'codeApe',
                             'diffusionCommerciale',
                             'confiance']
@@ -86,7 +86,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
 
             popup=folium.Popup(
                 '<b>'+gdf.iloc[i]['nomCommercial']+'</b><br>'
-                +"Adresse : "+'<br>'+gdf.iloc[i]['adresseEtablissement']+'<br>'
+                +"Adresse : "+'<br>'+gdf.iloc[i]['adresse']+'<br>'
                 +'Code APE : '+'<br>'+str(gdf.iloc[i]['codeApe'])+'<br>'
                 +'SIRET : '+'<br>'+str(gdf.iloc[i]['siret'])+'<br>'
                 +'Diffusion Commerciale : '+'<br>'+str(gdf.iloc[i]['diffusionCommerciale'])+'<br>'
@@ -218,7 +218,7 @@ template_end = """
 </style>
 {% endmacro %}"""
 
-def add_legend(m,colors,naf_file = '../Données nationales/NAF.parquet'):
+def add_legend(m,colors,naf_file = '../data/Données nationales/NAF.parquet'):
 
     """
     Adds a legend to the map with a color for each naf code  

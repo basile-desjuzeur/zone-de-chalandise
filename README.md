@@ -5,12 +5,12 @@ Ce projet a pour but de cartographier des zones de chalandises, en particulier i
 - estimer la population sous une aire donnée de France métropolitaine
 - référencer les entreprises identifiées par leur code NAF (plus d'informations sur les codes NAF [ici](https://www.insee.fr/fr/information/2406147))
 
-Un exemple : <a href="https://basile-desjuzeur.github.io/zone-de-chalandise/img/Lille.html" onclick="window.open(this.href); return false;">Cartographie des hypermarchés à 1h de voiture de Lille</a>
+Un exemple : <a href="https://basile-desjuzeur.github.io/zone-de-chalandise/data/img/Lille.html" onclick="window.open(this.href); return false;">Cartographie des hypermarchés à 1h de voiture de Lille</a>
 
 Pour ce faire, il exploite des données publiques (voir [sources](#sources)) des institutions suivantes :
 
 <p align="center">
-  <img src="./img/sources_data.png" alt="Sources de données" width="200"/>
+  <img src="./data/img/sources_data.png" alt="Sources de données" width="200"/>
 </p>
 
 ## Contenu du repo
@@ -69,3 +69,4 @@ Détail  sur la confiance dans la localisation :
 | Localisation des communes                                       | La Poste                                               | La Poste    | 08/01/2024                  | Licence Ouverte / Open Licence                    | HTPPS          |
 | Base Sirene des entreprises                                     | INSEE                                                  | INSEE       | 01/01/2024                  | Licence Ouverte / Open Licence v2.0               | HTPPS          |
 | Registre National des Entreprises (RNE)                         | INPI                                                   | INPI        | 01/01/2024                  | Voir [licence](https://www.inpi.fr/sites/default/files/Proposition%20de%20licence%20informations%20publiques%20INPI%20%28PI%20et%20RNE%29%20en%20cours.pdf)                                   | SFTP           |
+

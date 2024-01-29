@@ -1,4 +1,4 @@
-
+#%%
 import pandas as pd
 from shapely.geometry import Polygon
 import geopandas as gpd
@@ -48,7 +48,7 @@ def kml_to_polygon(file_path):
     return polygon
 
 # Get the cities that are in the polygon
-def get_cities_in_polygon(polygon,file_path = '../Données nationales/populationLocalisationCommunes.parquet'):
+def get_cities_in_polygon(polygon,file_path = '../data/Données nationales/populationLocalisationCommunes.parquet'):
     """
     Gets the cities in the polygon
     attribute : polygon : polygon of the area of interest
@@ -92,7 +92,7 @@ def get_population(df_cities_in_polygon):
 
     return round(nb)
 
-def get_companies(naf, df_communes, path_entreprises = '../Données nationales/RegistreNationalEtablissementsActifsRneSirene.parquet'):
+def get_companies(naf, df_communes, path_entreprises = '../data/Données nationales/RNE_Sirene.parquet'):
     """
    
     Get the companies in the polygon
@@ -104,8 +104,8 @@ def get_companies(naf, df_communes, path_entreprises = '../Données nationales/R
                             'y_latitude',
                             'x_longitude',
                             'nomCommercial',
-                            'adresseEtablissement',
-                            'codeInseecommune',
+                            'adresse',
+                            'codeInseeCommune',
                             'codeApe',
                             'diffusionCommerciale',
                             'confiance']
@@ -126,7 +126,7 @@ def get_companies(naf, df_communes, path_entreprises = '../Données nationales/R
     df = df_siret[df_siret['codeApe'].isin(naf)]
 
     # get the companies in the polygon (i.e. with code)
-    df_filtered = df[df['codeInseecommune'].isin(codes_communes)]
+    df_filtered = df[df['codeInseeCommune'].isin(codes_communes)]
 
     # lien pappers pour chaque entreprise
     df_filtered = df_filtered.copy()
@@ -143,7 +143,7 @@ def polygon_to_kml(polygon, output_path):
 
 
 
-def _main(kml_file_path,naf,population_file_path= '../Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../Données nationales/RegistreNationalEtablissementsActifsRneSirene.parquet'):
+def _main(kml_file_path,naf,population_file_path= '../data/Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../data/Données nationales/RNE_Sirene.parquet'):
     """
     kml_file_path : path to the kml file of the area of interest
     naf : list of naf codes to filter the companies
@@ -185,3 +185,5 @@ def _main(kml_file_path,naf,population_file_path= '../Données nationales/popula
     m = add_legend(m,colors)
 
     return m,df_filtered,polygon
+
+# %%
