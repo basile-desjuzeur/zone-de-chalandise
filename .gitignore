@@ -12,3 +12,6 @@ old/
 *.parquet
 *.kml
 *.xlsx
+
+# pycache
+__pycache__/
