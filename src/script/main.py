@@ -108,7 +108,7 @@ def get_companies(naf, df_communes, path_entreprises = '../data/Données nationa
                             'codeInseeCommune',
                             'codeApe',
                             'diffusionCommerciale',
-                            'confiance']
+                            'qualite_xy']
     """
 
     
@@ -143,7 +143,7 @@ def polygon_to_kml(polygon, output_path):
 
 
 
-def _main(kml_file_path,naf,population_file_path= '../data/Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../data/Données nationales/RNE_Sirene.parquet'):
+def _main(kml_file_path,naf=["47.11B","47.11F"],population_file_path= '../../data/Données nationales/populationLocalisationCommunes.parquet',companies_file_path = '../../data/Données nationales/RNE_Sirene_localisé.parquet'):
     """
     kml_file_path : path to the kml file of the area of interest
     naf : list of naf codes to filter the companies
@@ -184,6 +184,6 @@ def _main(kml_file_path,naf,population_file_path= '../data/Données nationales/p
     # add the legend
     m = add_legend(m,colors)
 
-    return m,df_filtered,polygon
+    return m,df_filtered,polygon,population
 
 # %%

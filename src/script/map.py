@@ -50,7 +50,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
                             'codeInseeCommune',
                             'codeApe',
                             'diffusionCommerciale',
-                            'confiance']
+                            'qualite_xy']
     polygon : polygon of the area of interest
     population : population in the polygon
     kml_file_path : path to the kml file of the area of interest
@@ -92,7 +92,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
                 +'Diffusion Commerciale : '+'<br>'+str(gdf.iloc[i]['diffusionCommerciale'])+'<br>'
 
                 # display confidence score as percentage rather than /5
-                +"Confiance dans la localisation : "+'<br>'+str(int(gdf.iloc[i]['confiance']/5*100))+'%<br>'
+                +"Confiance dans la localisation : "+'<br>'+str(int(gdf.iloc[i]['qualite_xy']/5*100))+'%<br>'
                 +'<a href="'+gdf.iloc[i]['lien_pappers']+'">Lien Pappers</a>'
             ),
     
@@ -218,7 +218,7 @@ template_end = """
 </style>
 {% endmacro %}"""
 
-def add_legend(m,colors,naf_file = '../data/Données nationales/NAF.parquet'):
+def add_legend(m,colors,naf_file = '../../data/Données nationales/NAF.parquet'):
 
     """
     Adds a legend to the map with a color for each naf code  
