@@ -12,6 +12,9 @@ old/
 *.parquet
 *.kml
 *.xlsx
+*.geojson
+*.json
+*.html
 
 # pycache
 __pycache__/
