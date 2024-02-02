@@ -87,7 +87,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
             popup=folium.Popup(
                 '<b>'+gdf.iloc[i]['nomCommercial']+'</b><br>'
                 +"Adresse : "+'<br>'+gdf.iloc[i]['adresse']+'<br>'
-                +'Code APE : '+'<br>'+str(gdf.iloc[i]['codeApe'])+'<br>'
+                +'Code NAF : '+'<br>'+str(gdf.iloc[i]['codeApe'])+'<br>'
                 +'SIRET : '+'<br>'+str(gdf.iloc[i]['siret'])+'<br>'
                 +'Diffusion Commerciale : '+'<br>'+str(gdf.iloc[i]['diffusionCommerciale'])+'<br>'
 
