@@ -186,4 +186,16 @@ def _main(kml_file_path,naf=["47.11B","47.11F"],population_file_path= '../../dat
 
     return m,df_filtered,polygon,population
 
+
+if __name__ == "__main__":
+
+    kml_file_path = '../../data/Données sites/Zone de chalandise à une heure de Lille.geojson'
+    naf = ["47.11B","47.11F"]
+    population_file_path = '../../data/Données nationales/populationLocalisationCommunes.parquet'
+    companies_file_path = '../../data/Données nationales/RNE_Sirene_localisé.parquet'
+
+    m,df_filtered,polygon,population = _main(kml_file_path,naf,population_file_path,companies_file_path)
+
+    m.save('../../data/test/test.html')
+    print('Carte sauvegardée dans data/test/test.html')
 # %%

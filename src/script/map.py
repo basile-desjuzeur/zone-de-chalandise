@@ -92,7 +92,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
                 +'Diffusion Commerciale : '+'<br>'+str(gdf.iloc[i]['diffusionCommerciale'])+'<br>'
 
                 # display confidence score as percentage rather than /5
-                +"Confiance dans la localisation : "+'<br>'+str(int(gdf.iloc[i]['qualite_xy']/5*100))+'%<br>'
+                +"Confiance dans la localisation : "+'<br>'+str(int(gdf.iloc[i]['confiance']/5*100))+'%<br>'
                 +'<a href="'+gdf.iloc[i]['lien_pappers']+'">Lien Pappers</a>'
             ),
     
