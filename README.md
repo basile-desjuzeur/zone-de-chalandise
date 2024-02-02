@@ -5,7 +5,7 @@ Ce projet a pour but de cartographier des zones de chalandises, en particulier i
 - estimer la population sous une aire donnée de France métropolitaine
 - référencer les entreprises identifiées par leur code NAF (plus d'informations sur les codes NAF [ici](https://www.insee.fr/fr/information/2406147))
 
-Un exemple : <a href="https://basile-desjuzeur.github.io/zone-de-chalandise/data/img/Strasbourg.html" onclick="window.open(this.href); return false;">Cartographie des hypermarchés à 1h de voiture de Strasbourg</a>
+Un exemple : <a href="https://basile-desjuzeur.github.io/zone-de-chalandise/data/img/Strasbourg.html" onclick="window.open(this.href); return false;">Cartographie des entreprises de l'agroalimentaire à 1h de voiture de Strasbourg</a>
 
 Pour ce faire, il exploite des données publiques (voir [sources](#sources)) des institutions suivantes :
 
