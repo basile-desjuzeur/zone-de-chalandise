@@ -63,8 +63,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
 
     # set the crs
     gdf.crs = 'EPSG:4326'
-    polygon.crs = 'EPSG:4326'
-
+    
     # create the map and locate it at the center of the polygon
     m = folium.Map(location=[polygon.centroid.y, polygon.centroid.x], zoom_start=10)
 
