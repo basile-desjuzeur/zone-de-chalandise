@@ -5,6 +5,8 @@ import geopandas as gpd
 import geojson
 from lxml import etree
 import simplekml
+import geopandas as gpd
+import fiona
 
 from map import colors_for_map,display_map,add_legend
 
@@ -159,6 +161,14 @@ def _main(kml_file_path,naf=["47.11B","47.11F"],population_file_path= '../../dat
         polygon = kml_to_polygon(kml_file_path)
     elif kml_file_path.split('.')[-1] == 'geojson':
         polygon = geo_json_to_polygon(kml_file_path)
+    elif kml_file_path.split('.')[-1] == 'kmz':
+        fiona.supported_drivers['KML']  = 'rw'
+        polygon = gpd.read_file(kml_file_path)
+        # set crs
+        polygon = polygon.to_crs('EPSG:4326').geometry
+    else:
+        print('Error: file format not supported')
+        return
 
 
     print("Filtre des communes dans l'aire d'étude...")
@@ -189,7 +199,7 @@ def _main(kml_file_path,naf=["47.11B","47.11F"],population_file_path= '../../dat
 
 if __name__ == "__main__":
 
-    kml_file_path = '../../data/Données sites/Zone de chalandise à une heure de Lille.geojson'
+    kml_file_path = '../../data/test/Saint flour.kmz'
     naf = ["47.11B","47.11F"]
     population_file_path = '../../data/Données nationales/populationLocalisationCommunes.parquet'
     companies_file_path = '../../data/Données nationales/RNE_Sirene_localisé.parquet'
