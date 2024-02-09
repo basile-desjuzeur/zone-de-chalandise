@@ -63,6 +63,7 @@ def display_map(df_filtered,polygon,population,kml_file_path,colors):
 
     # set the crs
     gdf.crs = 'EPSG:4326'
+    polygon.crs = 'EPSG:4326'
 
     # create the map and locate it at the center of the polygon
     m = folium.Map(location=[polygon.centroid.y, polygon.centroid.x], zoom_start=10)
@@ -135,7 +136,7 @@ template_start = """
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Draggable - Default functionality</title>
+  <title>Cartographie zone de chalandise </title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
